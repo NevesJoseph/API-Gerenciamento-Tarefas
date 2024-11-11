@@ -22,7 +22,7 @@ Para executar este projeto, você precisará ter instalado em sua máquina:
 
 ## 💻 Instalação e Configuração
 
-Siga as instruções de [Instalação do Ruby e Rails](https://github.com/seu-usuario/nome-do-repositorio/blob/main/docs/instalacao.md) para configurar o ambiente de desenvolvimento.
+Siga as instruções de [Instalação do Ruby e Rails](https://github.com/NevesJoseph/API-Gerenciamento-Tarefas/blob/main/Install-Ruby-Rails.md) para configurar o ambiente de desenvolvimento.
 
 ## 🔥 Endpoints da API
 
