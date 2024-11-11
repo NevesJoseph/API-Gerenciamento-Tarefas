@@ -1,12 +1,16 @@
 # API de Gerenciamento de Tarefas (Tasks)
 
-Uma API RESTful desenvolvida com Ruby on Rails para gerenciamento de tarefas. Esta API permite criar, listar, atualizar e deletar tarefas (CRUD completo).
+Uma API RESTful desenvolvida com Ruby on Rails para gerenciamento de tarefas. Esta API permite criar, listar, atualizar e deletar tarefas (CRUD completo), com diversas melhorias implementadas.
 
 ## 🚀 Tecnologias Utilizadas
 
 - Ruby 3.0.0
 - Rails 7.0.0
 - SQLite3
+- Devise (Autenticação de Usuários)
+- Kaminari (Paginação)
+- RSpec (Testes Automatizados)
+- Swagger UI Rails (Documentação da API)
 
 ## 📋 Pré-requisitos
 
@@ -16,7 +20,41 @@ Para executar este projeto, você precisará ter instalado em sua máquina:
 - Rails (versão 7.0.0 ou superior)
 - SQLite3
 
-## 💻 Instalação
+## 💻 Instalação e Configuração
+
+Siga as instruções de [Instalação do Ruby e Rails](https://github.com/seu-usuario/nome-do-repositorio/blob/main/docs/instalacao.md) para configurar o ambiente de desenvolvimento.
+
+## 🔥 Endpoints da API
+
+### Autenticação
+- **POST** `/api/v1/users/sign_in`: Realizar login do usuário
+- **POST** `/api/v1/users/sign_out`: Realizar logout do usuário
+
+### Tarefas
+- **GET** `/api/v1/tasks`: Listar todas as tarefas do usuário autenticado
+- **GET** `/api/v1/tasks/:id`: Buscar uma tarefa específica
+- **POST** `/api/v1/tasks`: Criar uma nova tarefa
+- **PATCH/PUT** `/api/v1/tasks/:id`: Atualizar uma tarefa
+- **DELETE** `/api/v1/tasks/:id`: Deletar uma tarefa
+
+### Filtros e Paginação
+- Filtrar tarefas por `title` e `completed` status
+- Paginar a listagem de tarefas, retornando 10 itens por página
+
+## 🎯 Documentação da API
+
+A documentação completa da API, incluindo exemplos de uso, está disponível em `/api-docs` após iniciar o servidor.
+
+## 🧪 Testes Automatizados
+
+Foram implementados testes unitários usando RSpec para validar o comportamento dos endpoints da API.
+
+Para executar os testes:
+```bash
+rspec spec/controllers/api/v1/tasks_controller_spec.rb
+```
+
+## 🚀 Iniciando o Projeto
 
 1. Clone o repositório
 ```bash
@@ -43,127 +81,22 @@ rails db:create db:migrate
 rails server
 ```
 
-O servidor iniciará na porta 3000 - acesse `http://localhost:3000`
+O servidor iniciará na porta 3000 - acesse `http://localhost:3000/api-docs` para visualizar a documentação da API.
 
-## 🔥 Endpoints da API
+## 🔄 Principais Recursos Implementados
 
-### Listar todas as tarefas
-```http
-GET /api/v1/tasks
-```
+- **Autenticação de Usuários**: Usando a gem Devise, a API requer autenticação para acessar os endpoints.
+- **Paginação**: A listagem de tarefas é paginada, retornando 10 itens por página.
+- **Filtros de Busca**: É possível filtrar as tarefas por título e status de conclusão.
+- **Testes Automatizados**: Foram implementados testes unitários para validar o comportamento da API.
+- **Documentação com Swagger**: A documentação da API é gerada automaticamente usando a gem Swagger UI Rails.
 
-### Buscar uma tarefa específica
-```http
-GET /api/v1/tasks/:id
-```
+## 🔍 Melhorias Futuras
 
-### Criar uma nova tarefa
-```http
-POST /api/v1/tasks
-```
-Corpo da requisição:
-```json
-{
-  "task": {
-    "title": "Nova Tarefa",
-    "description": "Descrição da tarefa",
-    "completed": false
-  }
-}
-```
-
-### Atualizar uma tarefa
-```http
-PATCH/PUT /api/v1/tasks/:id
-```
-Corpo da requisição:
-```json
-{
-  "task": {
-    "title": "Tarefa Atualizada",
-    "description": "Descrição atualizada",
-    "completed": true
-  }
-}
-```
-
-### Deletar uma tarefa
-```http
-DELETE /api/v1/tasks/:id
-```
-
-## 📦 Estrutura do Projeto
-
-```
-app/
-├── controllers/
-│   └── api/
-│       └── v1/
-│           └── tasks_controller.rb
-├── models/
-│   └── task.rb
-└── config/
-    └── routes.rb
-```
-
-## 🎯 Exemplos de Uso
-
-### Criando uma nova tarefa
-```bash
-curl -X POST http://localhost:3000/api/v1/tasks \
-  -H "Content-Type: application/json" \
-  -d '{
-    "task": {
-      "title": "Estudar Ruby on Rails",
-      "description": "Aprender sobre APIs RESTful",
-      "completed": false
-    }
-  }'
-```
-
-### Listando todas as tarefas
-```bash
-curl http://localhost:3000/api/v1/tasks
-```
-
-### Atualizando uma tarefa
-```bash
-curl -X PATCH http://localhost:3000/api/v1/tasks/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "task": {
-      "completed": true
-    }
-  }'
-```
-
-## 📝 Estrutura do Banco de Dados
-
-### Tabela: tasks
-| Campo | Tipo | Descrição |
-|-------|------|-----------|
-| id | Integer | Identificador único da tarefa |
-| title | String | Título da tarefa |
-| description | Text | Descrição detalhada da tarefa |
-| completed | Boolean | Status de conclusão da tarefa |
-| created_at | DateTime | Data de criação do registro |
-| updated_at | DateTime | Data da última atualização |
-
-## 🔄 Status das Respostas
-
-- 200: Sucesso
-- 201: Criado com sucesso
-- 204: Sem conteúdo
-- 404: Não encontrado
-- 422: Entidade não processável
-
-## 💡 Melhorias Futuras
-
-- [ ] Adicionar autenticação de usuários
-- [ ] Implementar paginação
-- [ ] Adicionar filtros de busca
-- [ ] Implementar testes automatizados
-- [ ] Adicionar documentação com Swagger
+- [ ] Implementar atualização em lote de tarefas
+- [ ] Adicionar suporte a upload de arquivos nas tarefas
+- [ ] Implementar autenticação via OAuth
+- [ ] Integrar com sistema de notificações
 
 ## 👨‍💻 Como Contribuir
 
@@ -179,10 +112,6 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE.md](LICENSE.md) 
 
 ## ✒️ Autor
 
-* **Joseph Neves** - *Desenvolvedor* - (https://github.com/NevesJoseph)
-
-## 🎁 Expressões de Gratidão
-
-* Compartilhe este projeto com outros desenvolvedores 📢
+* **Joseph Neves** - *Desenvolvedor* - [NevesJoseph](https://github.com/NevesJoseph)
 
 ---
